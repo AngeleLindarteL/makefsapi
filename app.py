@@ -1,5 +1,6 @@
 import http
 import json
+import shutil
 
 from flask.json import JSONDecoder
 from flask_cors.extension import CORS
@@ -41,6 +42,12 @@ class UserV(Resource):
             "status": 200
         })
 
+    def delete(self, user_id):
+        try:
+            dirPath = f"./UsersInfo/{user_id}"
+            shutil.rmtree(dirPath)
+        except OSError as ose:
+            return False
 
 class VRecipe(Resource):
     def get(self, user_id):
